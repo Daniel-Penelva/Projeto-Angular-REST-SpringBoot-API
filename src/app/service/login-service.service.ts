@@ -12,25 +12,19 @@ export class LoginServiceService {
 
   // Método de login que recebe como parâmetro um objeto de usuário
   login(usuario:any){
-    //console.info("User: " + usuario.login);
-    //console.info(usuario); -> para saber que o usuário está vindo da tela em formato de typescript.
-    //console.info(JSON.stringify(usuario)); -> convertendo as variaveis para JSON
 
     // Vai retornar (parâmetro 1) montando a url login e (parâmetro 2) mandando os dados login e senha do usuário.
     return this.http.post(AppConstants.baseLogin, JSON.stringify(usuario)).subscribe(data =>{
-      
-      /* Corpo do meu retorno Http*/
-      //console.info(JSON.parse(JSON.stringify(data)).Authorization.split(' ')[1]); -> mostra no console como captura o token
 
+      //Faz um parse transformando em json e captura o token sem o contexto 'Authorization' e 'Bearrer'
       var token = JSON.parse(JSON.stringify(data)).Authorization.split(' ')[1];
 
       // Esconde (ou armazena) atrás do front-end
       localStorage.setItem("token", token);
 
-      // console.info(localStorage.getItem("token")); -> mostra no console o token capturado
-
     }, error =>{
       console.error("Erro ao fazer login!");
+      alert("Acesso Negado!");
     });
   }
 }
