@@ -50,3 +50,28 @@ Para ligar essas variáveis no formulário vamos utilizar as diretivas ngmodel, 
 
 A ação vai ser gerada pelo botão através do (click), exemplificando:
 (click)="login()"
+
+------------------------------------------------------- // -------------------------------------------------------
+
+Vamos fazer agora a autenticação do JWT do Sprig Boot com o Angular API REST.
+Analisando: Para fazer o login temos que passar pelo o nosso back-end e capturar o token, depois ligá-lo ao nosso
+front-end (Angular), para só então poder ser enviado para a nossa API REST.
+
+Para iniciar vamos criar um app-constants - Comandos no terminal:
+
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular> cd .\Projeto-Angular-REST\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST> cd .\src\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src> cd .\app\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app> ng generate class AppConstants --skipTests=true 
+
+O objetivo de criar esse arquivo é para vincular a porta 8080 e o context path 'projetospringrestapi' da nossa API Rest.
+
+Código para analisar: 
+public static get baseLogin(): string {return this.baseServidor + "projetospringrestapi/login"}
+
+ -> get: A palavra-chave get é usada para definir um método getter. Um getter é um método especial que permite acessar o 
+    valor de uma propriedade como se fosse uma propriedade de leitura.
+
+ -> baseLogin: Este é o nome do getter. É a propriedade que será acessada como se fosse uma propriedade de leitura.
+
+ -> (): string: Isso indica que o getter não tem parâmetros e que ele retorna uma string.
