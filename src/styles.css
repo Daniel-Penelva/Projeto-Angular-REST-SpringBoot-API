@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+p#descProjeto{
+    display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	background-color: #070707;
+	color: white;
+	text-align: center;
+    font-weight: bold;
+}
