@@ -75,3 +75,138 @@ public static get baseLogin(): string {return this.baseServidor + "projetospring
  -> baseLogin: Este é o nome do getter. É a propriedade que será acessada como se fosse uma propriedade de leitura.
 
  -> (): string: Isso indica que o getter não tem parâmetros e que ele retorna uma string.
+
+ ----------//----------
+
+Para trabalhar com chamadas HTTP (requisição ajax) para servidores e consumir APIs RESTful vamos fazer um import 
+HttpClientModule.
+
+No Angular, o HttpClientModule é um módulo que faz parte do pacote @angular/common/http. Ele fornece um serviço 
+chamado HttpClient, que é usado para fazer chamadas HTTP para servidores e consumir APIs RESTful ou outros recursos 
+baseados em HTTP.
+
+O HttpClientModule é uma melhoria em relação ao antigo HttpModule, que foi usado nas versões mais antigas do Angular. 
+O HttpClientModule é baseado em Observables e oferece uma maneira mais moderna e poderosa de trabalhar com solicitações 
+e respostas HTTP.
+
+O HttpClient fornece uma variedade de métodos para diferentes tipos de solicitações HTTP, como get(), post(), put(), 
+delete(), entre outros. Ele também permite que você envie cabeçalhos personalizados, parâmetros de consulta e corpos 
+de requisição.
+
+Lembre-se de que, para usar o HttpClient, você precisa adicionar o pacote @angular/common/http ao seu projeto, o que 
+é normalmente feito por padrão ao criar um novo projeto Angular.
+
+----------//----------
+
+Vamos criar um service para implementar o login. Para criar vamos ao terminal - comandos:
+
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular> cd .\Projeto-Angular-REST\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST> cd .\src\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src> cd .\app\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app> cd .\service\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app\service> ng generate service LoginService --skipTests=true
+
+Com o service criado vamos analisar esse código implementado: 
+constructor(private http: HttpClient) { }
+
+Esse script está definindo o construtor da classe HttpClient.
+
+1. `constructor`: O construtor é um método especial de uma classe que é chamado automaticamente quando uma instância 
+da classe é criada. É usado para inicializar a classe e seus membros.
+
+2. `private http: HttpClient`: Aqui, estamos definindo um parâmetro chamado `http`, que tem o tipo `HttpClient`. A 
+declaração `private` antes do nome do parâmetro indica que essa variável será um membro privado da classe. Ou seja, 
+ela não será acessível fora da classe. 
+
+Aqui, estamos usando o padrão de injeção de dependência do Angular. Quando você inclui um parâmetro no construtor de 
+uma classe e especifica um tipo para esse parâmetro (como `HttpClient`), o Angular irá automaticamente fornecer uma 
+instância daquele tipo quando criar uma instância da classe.
+
+No caso específico do construtor apresentado, o `HttpClient` é um serviço do Angular usado para fazer chamadas HTTP 
+a servidores e consumir APIs RESTful ou outros recursos baseados em HTTP. Ele é responsável por gerenciar e executar 
+solicitações HTTP, como GET, POST, PUT, DELETE, etc.
+
+Ao declarar o parâmetro `private http: HttpClient` no construtor, você está injetando o serviço `HttpClient` na 
+classe. Isso permite que você use o `HttpClient` para fazer solicitações HTTP em qualquer método da classe. 
+
+Esse padrão de injeção de dependência do Angular torna a criação de serviços e a interação com outras partes da 
+aplicação mais fácil e flexível. Além disso, ajuda a facilitar a manutenção e o teste das classes, tornando-as menos 
+acopladas e mais reutilizáveis.
+
+----------//----------
+
+Em 'app.component.ts vamos analisar' esse código implementado:
+constructor(private loginService: LoginServiceService){}
+
+Esse script está definindo o construtor dessa classe.
+
+1. `constructor`: O construtor é um método especial de uma classe que é chamado automaticamente quando uma instância 
+da classe é criada. É usado para inicializar a classe e seus membros.
+
+2. `private loginService: LoginServiceService`: Aqui, estamos definindo um parâmetro chamado `loginService`, que tem 
+o tipo `LoginServiceService`. A declaração `private` antes do nome do parâmetro indica que essa variável será um 
+membro privado da classe. Ou seja, ela não será acessível fora da classe. Geralmente, é uma prática comum tornar 
+serviços injetados em componentes ou outros serviços privados.
+
+Quando uma instância dessa classe for criada, o Angular automaticamente criará uma instância do `LoginServiceService` 
+e a injetará na propriedade `loginService`, tornando o serviço disponível para uso dentro dessa classe. Isso permite 
+que você utilize o serviço `LoginServiceService` para executar suas operações e chamar métodos fornecidos por esse 
+serviço.
+
+----------//----------
+
+No método login(usuario:any){...}
+
+Vale ressaltar que os valores na tela não vem em formato de json (e sim em typescript), por exemplo, 
+{login: "admin" e senha: "123"}
+
+Já a nossa API Rest vem em formato de json, por exemplo, 
+{"login": "admin" e "senha": "123"}
+
+Repare os atributos vem entre aspas, lgo para resolver essa diferença teremos que manipular o código da seguinte maneira:
+JSON.stringify(usuario)
+
+Outro ponto que vale ressaltar que o acesso a login vem acompanhado com um token, porém antes teremos que resolver as 
+incompatibilidades entre os servidores diferentes do back-end (API SpringBoot - 8080) e o front-end (angular - 4200) 
+que são os cors. Os cors são gerado pelos navegadores e para resolver isso temos que fazer validações na API Rest
+jogando como resposta os cors gerados no navegador. Por exemplo, na nossa API Rest SpringBoot serão tratados da 
+seguinte maneira na classe de autenticação do token:
+
+private void liberacaoCors(HttpServletResponse response) {
+		if(response.getHeader("Access-Control-Allow-Origin") == null) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+		}
+		
+		if(response.getHeader("Access-Control-Allow-Headers") == null) {
+			response.addHeader("Access-Control-Allow-Headers", "*");
+		}
+		
+		if(response.getHeader("Access-Control-Request-Headers") == null) {
+			response.addHeader("Access-Control-Request-Headers", "*");
+		}
+		
+		// Liberando Cors para deletar o usuario
+		if(response.getHeader("Access-Control-Allow-Methods") == null) {
+			response.addHeader("Access-Control-Allow-Methods", "*");
+		}
+}
+
+
+Voltando a parte do token, vale ressaltar que além dos dados (login e senha) do usuário vem com um token acompanhado,
+é possível visualizar esse token através do código: 
+console.info(JSON.parse(JSON.stringify(data)));
+
+O token vem da seguinte maneira:
+{Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsIm…2MdpscpsxR2zgIpPYmfiMnc-DJEcYechoUcHu0pzb8rN0rSvQ'}
+
+Podemos capturar até o Bearer com o código:
+console.info(JSON.parse(JSON.stringify(data)).Authorization);
+Vai vir assim: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY5MTEzMzI5M30.zpt5fWMOM6GWP7ApY9Av3hW7iq8kVcFPWMizv1fQH-KP7xNilfo9eoTaRs27eAKCvxKu7HxUsFIJ3wCGdqeq3Q
+
+E podemos capturar apenas o token que é o que nos interessa, porém vale destacar que existe um espaço vazio entre a 
+palavra 'Bearer' e o 'token' como pode ser visto no código da nossa API Rest Spring Boot: 
+String token = TOKEN_PREFIX + " " + JWT; 
+
+Vale ressaltar que o espaço vai ser utilizado o método split(). Portanto, para capturar apenas o token o código vai 
+ser assim:
+console.info(JSON.parse(JSON.stringify(data)).Authorization.split(' ')[1]);
