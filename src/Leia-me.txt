@@ -1,3 +1,52 @@
 Incluindo via CDN bootstrap:
 Site: https://getbootstrap.com/
 
+------------------------------------------------------- // -------------------------------------------------------
+
+Para trabalhar com formulário temos que fazer o import do FormsModule.
+
+No Angular, o `FormsModule` é um módulo que faz parte do pacote `@angular/forms` e é usado para trabalhar com 
+formulários e realizar a vinculação de dados bidirecional (two-way data binding) entre os elementos do formulário 
+e o modelo de dados da aplicação.
+
+Quando você está construindo um aplicativo Angular com formulários, o `FormsModule` é uma dependência essencial que 
+deve ser importada no módulo raiz ou em outros módulos onde você deseja usar formulários. Ele oferece diversas 
+diretivas e recursos para simplificar o trabalho com formulários HTML e permite realizar a validação dos dados 
+inseridos pelos usuários.
+
+Alguns dos recursos fornecidos pelo `FormsModule` incluem:
+
+1. Vinculação de dados bidirecional: Com as diretivas fornecidas pelo `FormsModule`, você pode vincular os dados do
+ modelo de dados do Angular aos elementos do formulário. Isso significa que as alterações feitas nos elementos do 
+ formulário são refletidas no modelo de dados e vice-versa.
+
+2. Validação de formulários: O `FormsModule` suporta a validação de dados de entrada em tempo real. Você pode 
+definir regras de validação para campos de formulário, como requerido, mínimo e máximo de caracteres, padrões 
+personalizados, entre outros.
+
+3. Rastreamento do estado de validação: As diretivas do `FormsModule` fornecem uma maneira de rastrear o estado de 
+validação de cada campo de formulário. Isso permite que você saiba se o campo é válido, inválido, sujo (modificado 
+pelo usuário) ou intocado.
+
+4. Tratamento de eventos: O `FormsModule` também gerencia eventos como envio de formulário, clique em botões de 
+envio e redefinição, e permite que você responda a esses eventos em seu código.
+
+Depois de importar o módulo, você pode começar a usar as diretivas do `FormsModule`, como `ngModel`, `ngForm`, 
+`ngSubmit`, entre outras, para criar e trabalhar com formulários no Angular.
+
+Em resumo, o `FormsModule` é uma parte importante do Angular para trabalhar com formulários, fornecendo uma maneira 
+conveniente de vincular dados e validar informações do usuário em seus aplicativos.
+
+----------//----------
+Anotações: NgModel e Formulário
+
+As variaveis declaradas 'login' e 'senha' no 'app.component.ts' corresponde ao mesmo nome das variáveis declaradas
+na nossa API do Spring Boot, exemplificando:
+usuario = {login: '', senha: ''};
+
+Para ligar essas variáveis no formulário vamos utilizar as diretivas ngmodel, exemplificando:
+[(ngModel)]="usuario.login"
+[(ngModel)]="usuario.senha"
+
+A ação vai ser gerada pelo botão através do (click), exemplificando:
+(click)="login()"
