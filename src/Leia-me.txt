@@ -587,3 +587,27 @@ Exemplificando o código do usuario-service.service.ts:
 Quando esse método `getStudentList()` é chamado, ele retornará um `Observable` que representa a resposta da 
 solicitação HTTP. Esse `Observable` pode ser assinado por componentes ou outros serviços para obter a lista de 
 estudantes ou realizar outras ações quando os dados estiverem disponíveis.
+
+------------------------------------------------------- // -------------------------------------------------------
+Criando o model UsuarioService
+Para criar a Class Usuario dentro do pacote model - comando: ng generate class User --skipTests=true
+
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular> cd .\Projeto-Angular-REST\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST> cd .\src\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src> cd .\app\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app> cd .\model\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app\model> ng generate class User --skipTests=true
+
+Na API SpringBoot possui a classe Usuario, logo temos que criar no mesmo lado do front-end uma classe que 
+representa o back-end da API. Portanto, os atributos definidos na Classe Usuario no back-end será o mesmo 
+para a classe Usuario no front-end. Vale ressaltar que o nome da classe não interfere (pois é desacoplado
+com o back-end, a única forma de comunicação é a partir do json, logo temos que criar uma classe na parte do 
+front-end que representa os dados que virão da API Spring Boot, logo os dados definidos pelo atributo tem que 
+ter os mesmos nomes para que haja compatibilidade entre os dados), somente interfere 
+os atributos. Na classe front-end é nomeada de 'User' e na classe do back-end é nomeada de 'Usuario' e os 
+atributos possuem o mesmo nome tanto na classe Usuario da API(back-end) quanto na classe User do Angular (front-end).
+
+
+
+
+
