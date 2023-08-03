@@ -9,6 +9,7 @@ p#descProjeto{
 	color: white;
 	text-align: center;
     font-weight: bold;
+	
 }
 
 .ng-valid[required], .ng-valid.required{

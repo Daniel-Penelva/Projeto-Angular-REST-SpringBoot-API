@@ -337,4 +337,124 @@ Em resumo, o RouterModule é usado para configurar e importar as rotas no aplica
 serviço fornecido pelo RouterModule que permite controlar a navegação e manipular as rotas programaticamente. 
 Juntos, eles formam o sistema de navegação poderoso e flexível do Angular.
 
+------------------------------------------------------- // -------------------------------------------------------
+Criando um service Interceptor para atribuir o token no cabeçalho.
 
+Para criar vamos ao terminal - comandos:
+
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular> cd .\Projeto-Angular-REST\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST> cd .\src\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src> cd .\app\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app> cd .\service\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app\service> ng generate service HeaderInterceptor --skipTests=true
+
+----------//----------
+
+Vamos utilizar a interface `HttpInterceptor` que permite criar interceptadores personalizados para manipular 
+solicitações HTTP antes que elas sejam enviadas ao servidor e respostas HTTP antes que sejam retornadas ao 
+código que fez a chamada. Isso permite que você modifique, adicione ou remova headers, manipule erros, adicione 
+lógica de autenticação ou qualquer outra operação de pré-processamento e pós-processamento nas solicitações e 
+respostas.
+
+Para criar um interceptor personalizado, você precisa implementar a interface `HttpInterceptor`. A interface 
+`HttpInterceptor` tem um único método que deve ser implementado:
+
+```typescript
+interface HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>;
+}
+```
+
+O método `intercept` recebe dois parâmetros:
+
+1. `req: HttpRequest<any>`: A solicitação HTTP original que está prestes a ser enviada ao servidor.
+
+2. `next: HttpHandler`: O próximo manipulador HTTP na cadeia de interceptadores. Ele representa o próximo passo 
+do processo de envio da solicitação ao servidor.
+
+Os interceptors são uma ferramenta poderosa para adicionar comportamentos globais de manipulação de solicitações 
+e respostas em um aplicativo Angular. Eles ajudam a modularizar a lógica comum de HTTP em uma classe 
+reutilizável e facilitam a implementação de recursos como autenticação, manipulação de cabeçalhos, tratamento 
+de erros e muito mais em uma única camada.
+
+----------//----------
+
+Explicando o script criado no 'header-interceptor.service.ts':
+
+Interceptors são usados para interceptar e modificar solicitações HTTP antes de serem enviadas ao servidor e 
+interceptar e modificar respostas HTTP antes de serem retornadas ao código que fez a chamada.
+
+Detalhando passo a passo:
+
+1. `intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>`: Esse é o método de 
+interceptação, definido pela interface `HttpInterceptor`. Ele é responsável por receber a solicitação original 
+(`req`) e o próximo manipulador HTTP (`next`).
+
+2. `if (localStorage.getItem('token') != null) { ... }`: O interceptor verifica se há um token no 
+`localStorage`. O `localStorage` é uma API do navegador que permite armazenar dados no cliente.
+
+3. `const token = 'Bearer ' + localStorage.getItem('token');`: Se houver um token no `localStorage`, ele é 
+recuperado e adicionado ao cabeçalho de autorização. O token é formatado no padrão "Bearer" que é comumente 
+usado para autenticação com tokens JWT.
+
+4. `const tokenRequest = req.clone({ headers: req.headers.set('Authorization', token) });`: A solicitação 
+original é clonada (`req.clone()`) para que a solicitação original não seja modificada. Em seguida, o token de 
+autorização é adicionado ao cabeçalho da solicitação clonada.
+
+5. `return next.handle(tokenRequest);`: A requisição modificada é enviada ao próximo manipulador HTTP 
+(`next.handle()`) para continuar o fluxo da solicitação. Isso permite que outros interceptors ou o cliente 
+HTTP façam mais modificações, se necessário, antes que a solicitação seja realmente enviada ao servidor.
+
+6. `return next.handle(req);`: Se não houver token no `localStorage`, a solicitação original é enviada sem 
+nenhuma modificação.
+
+Em resumo, esse interceptor é responsável por adicionar um cabeçalho de autorização com um token JWT na 
+solicitação HTTP, caso um token esteja presente no `localStorage`. Isso pode ser usado para autenticar as 
+chamadas HTTP em APIs protegidas por autenticação de token JWT. Caso contrário, a solicitação é enviada sem 
+qualquer modificação.
+
+----------//----------
+
+Esse script define um módulo chamado HttpInterceptorModule, que configura um interceptor personalizado para 
+manipular solicitações HTTP no Angular.
+
+Vamos analisar o código linha por linha:
+
+@NgModule({ ... }): Este é o decorator NgModule, que é usado para definir um módulo no Angular.
+
+providers: [...]: A propriedade providers do decorator NgModule é usada para registrar os provedores de serviços 
+que serão disponibilizados dentro do módulo.
+
+[...]: A propriedade providers é configurada como um array, pois você pode registrar vários provedores de 
+serviços no mesmo módulo.
+
+{ ... }: Os objetos dentro do array são os provedores de serviço que estão sendo registrados.
+
+provide: HTTP_INTERCEPTORS: Aqui, estamos usando a constante HTTP_INTERCEPTORS do pacote @angular/common/http. 
+Essa constante é uma chave especial que informa ao Angular que estamos registrando um interceptor HTTP.
+
+useClass: HeaderInterceptorService: Aqui, estamos usando o valor HeaderInterceptorService como o serviço que 
+implementa o interceptor. Isso significa que o Angular usará a classe HeaderInterceptorService como o 
+interceptor para manipular as solicitações HTTP.
+
+multi: true: Essa propriedade indica que estamos registrando um provedor de serviço que pode ter várias 
+implementações. Como estamos registrando um interceptor HTTP, é importante definir multi: true para garantir 
+que não substituamos outros interceptores já registrados em outros módulos.
+
+Portanto, com esse código, estamos registrando o serviço HeaderInterceptorService como um interceptor HTTP no 
+módulo HttpInterceptorModule. Isso fará com que o Angular adicione automaticamente esse interceptor a uma lista 
+de interceptores globais que serão usados para manipular solicitações HTTP em todo o aplicativo.
+
+Lembre-se de que o HeaderInterceptorService deve implementar a interface HttpInterceptor para que o Angular 
+possa identificá-lo como um interceptor válido. Uma vez registrado, o HeaderInterceptorService terá a 
+oportunidade de manipular solicitações HTTP antes de serem enviadas ao servidor ou respostas HTTP antes de 
+serem retornadas ao código que fez a chamada. Isso permite que você adicione headers personalizados, autentique 
+solicitações, manipule erros e faça outras ações comuns de pré-processamento e pós-processamento para todas as 
+solicitações do aplicativo.
+
+----------//----------
+
+Não pode esquecer de declarar o 'HttpInterceptorModule' no 'app.module.ts'.
+
+Vale ressaltar que só precisa implementar esse service uma única vez, pois ele servirá para todas as requisições.
+Ou seja, tem o token então é só capturar e jogar no back-end (API Spring Boot).
