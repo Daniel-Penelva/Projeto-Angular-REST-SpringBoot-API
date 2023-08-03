@@ -607,7 +607,17 @@ ter os mesmos nomes para que haja compatibilidade entre os dados), somente inter
 os atributos. Na classe front-end é nomeada de 'User' e na classe do back-end é nomeada de 'Usuario' e os 
 atributos possuem o mesmo nome tanto na classe Usuario da API(back-end) quanto na classe User do Angular (front-end).
 
+------------------------------------------------------- // -------------------------------------------------------
+Criando o componente Usuario - comando:
 
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular> cd .\Projeto-Angular-REST\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST> cd .\src\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src> cd .\app\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app> cd .\componente\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app\componente> cd .\usuario\
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app\componente\usuario> ng g c Usuario
 
-
+----------//----------
+Primeira coisa a ser feita é definir a rota para esse componente Usuario. Logo vamos adicionar a rota no
+'app-routing.module.ts'.
 
