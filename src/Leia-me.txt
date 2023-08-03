@@ -458,3 +458,132 @@ Não pode esquecer de declarar o 'HttpInterceptorModule' no 'app.module.ts'.
 
 Vale ressaltar que só precisa implementar esse service uma única vez, pois ele servirá para todas as requisições.
 Ou seja, tem o token então é só capturar e jogar no back-end (API Spring Boot).
+
+------------------------------------------------------- // -------------------------------------------------------
+
+Class Model e Service do usuário
+
+1º Criar um UsuarioService - comando: ng generate service UsuarioService --skipTests=true
+
+Vamos utilizar as Classes HttpClient e Observable.
+
+HttpClient:
+
+A classe `HttpClient` é uma parte importante do módulo `@angular/common/http` e é usada para fazer chamadas 
+HTTP em aplicativos Angular. Essa classe fornece uma API fácil de usar para enviar e receber dados por meio de 
+solicitações HTTP, como GET, POST, PUT, DELETE e outras.
+
+Aqui estão algumas das principais características e funcionalidades da classe `HttpClient`:
+
+1. Realização de solicitações HTTP:
+   - O `HttpClient` oferece métodos para fazer solicitações HTTP, como GET, POST, PUT, DELETE, etc.
+   - Os métodos fornecidos retornam um `Observable` que representa a resposta HTTP.
+   - Exemplo: `get()`, `post()`, `put()`, `delete()`.
+
+2. Envio de dados na solicitação:
+   - O `HttpClient` permite enviar dados no corpo da solicitação, seja em formato JSON, formulário, texto ou blob.
+   - Exemplo: `post(url, data)`.
+
+3. Definição de headers personalizados:
+   - É possível definir headers personalizados para as solicitações HTTP, como headers de autorização, headers 
+     de conteúdo, etc.
+   - Exemplo: `setHeaders()`.
+
+4. Observables:
+   - O `HttpClient` trabalha com Observables do pacote `rxjs`.
+   - Isso permite usar os operadores do `rxjs` para manipular a resposta, como mapeamento, filtragem, tratamento 
+     de erros, etc.
+   - Exemplo: `pipe()` e `subscribe()`.
+
+5. Interceptors:
+   - O `HttpClient` suporta interceptadores HTTP personalizados para pré-processar e pós-processar as 
+     solicitações e respostas HTTP.
+   - Interceptors são úteis para adicionar headers globais, autenticação, manipulação de erros, etc.
+
+6. Tratamento de erros:
+   - O `HttpClient` lida com erros de solicitação HTTP e fornece mecanismos para capturar e tratar erros.
+   - Exemplo: `catchError()`.
+
+7. Consulta de parâmetros:
+   - O `HttpClient` permite passar parâmetros de consulta nas solicitações HTTP.
+   - Exemplo: `get(url, { params: new HttpParams().set('param', 'value') })`.
+
+8. Tipagem:
+   - O `HttpClient` suporta a tipagem das respostas, o que facilita o trabalho com os dados retornados.
+   - Exemplo: `get<MyData>(url)`.
+
+Você pode usar o `HttpClient` para fazer solicitações HTTP em APIs RESTful, consumir recursos da web, 
+autenticar solicitações, enviar dados ao servidor e muito mais. A classe `HttpClient` é uma das principais 
+ferramentas para lidar com comunicações HTTP em aplicativos Angular.
+
+
+Observable:
+A classe `Observable` faz parte do pacote `rxjs` (Reactive Extensions for JavaScript) que é usado extensivamente 
+no Angular para trabalhar com programação reativa e fluxos de dados assíncronos. O `Observable` é uma das 
+principais construções do `rxjs` e é a base para criar fluxos de eventos que podem ser observados e reagidos a 
+mudanças.
+
+Vamos explorar as principais características da classe `Observable`:
+
+1. Representação de fluxos de eventos:
+   - Um `Observable` é uma representação de um fluxo de eventos que pode ser assíncrono.
+   - Ele pode emitir zero ou mais valores (eventos) ao longo do tempo e também pode emitir um valor de erro ou 
+     um sinal de conclusão (complete).
+
+2. Assinatura:
+   - Para obter os valores emitidos por um `Observable`, é necessário se inscrever (assinar) ao mesmo.
+   - A inscrição é feita usando o método `subscribe()` do `Observable`.
+
+3. Operadores:
+   - O `rxjs` fornece uma ampla variedade de operadores para manipular, transformar e filtrar fluxos de dados 
+     de `Observable`.
+   - Os operadores são funções que podem ser encadeadas para processar os valores emitidos pelo `Observable`.
+
+4. Tratamento de erros:
+   - O `Observable` permite tratar erros usando o operador `catchError()` ou `retry()`.
+
+5. Cancelamento:
+   - As inscrições em `Observable` podem ser canceladas usando o método `unsubscribe()` para liberar recursos e 
+     evitar vazamentos de memória.
+
+6. Programação reativa:
+   - O `rxjs` segue o paradigma de programação reativa, onde você define reações a eventos assíncronos, em vez 
+     de codificar uma sequência de passos imperativos.
+
+7. Composição:
+   - Os `Observables` podem ser combinados e compostos usando operadores como `merge`, `concat`, `forkJoin`, 
+     `combineLatest`, etc.
+
+8. Tempo:
+   - O `rxjs` fornece operadores relacionados a tempo, como `interval`, `timer`, `debounceTime`, etc., para 
+     trabalhar com temporizadores e atrasos.
+
+O `rxjs` é uma ferramenta poderosa que facilita a manipulação de fluxos de eventos assíncronos e a programação 
+reativa no Angular. Os `Observables` são amplamente utilizados para lidar com chamadas HTTP, eventos do usuário, 
+animações, temporizadores e muito mais.
+
+----------//----------
+
+Exemplificando o código do usuario-service.service.ts: 
+
+- `getStudentList()`: Este é o nome do método que retorna uma lista de estudantes. Esse método faz uma 
+  solicitação HTTP para obter a lista de estudantes de alguma API.
+
+- `Observable<any>`: O método retorna um `Observable`, que é uma estrutura fornecida pelo pacote `rxjs` no 
+   Angular. `Observable` é usado para representar um fluxo de dados assíncronos. O tipo `<any>` é usado aqui 
+   para indicar que não sabemos exatamente qual será o tipo de dados da resposta.
+
+- `return this.http.get<any>(AppConstants.baseUrl);`: Nesta linha, o método faz uma solicitação HTTP GET usando 
+  o serviço `HttpClient` do Angular. A propriedade `http` foi injetada no serviço por meio de injeção de 
+  dependência, permitindo que o serviço faça chamadas HTTP.
+
+- `this.http.get<any>(...)`: `this.http.get()` é o método do `HttpClient` usado para fazer uma solicitação HTTP 
+   GET. Ele retorna um `Observable` que emite a resposta da solicitação.
+
+- `AppConstants.baseUrl`: Este é o URL base para a API REST que o aplicativo está consumindo, que é definido em uma classe de 
+   constantes chamada `AppConstants`. O método `getStudentList()` usará esse URL como destino da solicitação 
+   GET para obter a lista de estudantes.
+
+Quando esse método `getStudentList()` é chamado, ele retornará um `Observable` que representa a resposta da 
+solicitação HTTP. Esse `Observable` pode ser assinado por componentes ou outros serviços para obter a lista de 
+estudantes ou realizar outras ações quando os dados estiverem disponíveis.
