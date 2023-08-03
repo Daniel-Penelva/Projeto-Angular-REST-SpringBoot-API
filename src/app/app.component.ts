@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { LoginServiceService } from './service/login-service.service';
-
 
 @Component({
   selector: 'app-root',
@@ -10,14 +8,6 @@ import { LoginServiceService } from './service/login-service.service';
 export class AppComponent {
   title = 'Projeto-Angular-REST';
 
-  usuario = {login: '', senha: ''};
-
-  constructor(private loginService: LoginServiceService){}
+  constructor(){}
   
-  public login(){
-    //console.log("Teste login - Login: " + this.usuario.login + " Senha: " + this.usuario.senha);
-
-    // Ao clicar na tela vai cair aqui e daqui vai chamar o serviceLogin
-    this.loginService.login(this.usuario);
-  }
 }

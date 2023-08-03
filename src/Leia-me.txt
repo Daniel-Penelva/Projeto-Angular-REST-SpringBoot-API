@@ -210,3 +210,76 @@ String token = TOKEN_PREFIX + " " + JWT;
 Vale ressaltar que o espaço vai ser utilizado o método split(). Portanto, para capturar apenas o token o código vai 
 ser assim:
 console.info(JSON.parse(JSON.stringify(data)).Authorization.split(' ')[1]);
+
+------------------------------------------------------- // -------------------------------------------------------
+Routes (Rotas)
+
+O angular para fazer um redirecionamento de uma página para outra é utilizado o routes. No angular é feito um mapeamento 
+na url que quer redirecionar (isso é dentro do angular) e tudo isso de forma interna.
+
+No Angular, as rotas (routes) são um mecanismo poderoso para navegação e para tornar o aplicativo uma Single Page 
+Application (SPA). As rotas permitem que você altere a visualização do conteúdo com base na URL atual do navegador, 
+sem precisar recarregar a página inteira. Isso proporciona uma experiência de usuário mais fluida e responsiva.
+
+As rotas no Angular são gerenciadas pelo módulo RouterModule, que faz parte do pacote @angular/router. Para utilizar 
+as rotas em seu aplicativo Angular, é necessário importar e configurar o RouterModule no módulo raiz (geralmente no 
+arquivo app.module.ts) e definir as rotas para os diferentes componentes da aplicação.
+
+A configuração das rotas envolve duas etapas principais:
+
+Definir as rotas no módulo de rotas:
+
+Primeiro, você precisa definir as rotas que correspondem às diferentes visualizações do aplicativo. Isso é feito em 
+um arquivo separado geralmente chamado app-routing.module.ts (ou qualquer outro nome que você escolher). Neste 
+arquivo, você importa os componentes que serão associados a cada rota e define um objeto de configuração que mapeia 
+as URLs para os componentes.
+
+Usar a diretiva router-outlet no template do componente raiz:
+O próximo passo é usar a diretiva router-outlet no template do componente raiz do aplicativo (app.component.html). 
+Essa diretiva indica onde os componentes associados a cada rota serão renderizados.
+
+Diretivas: <router-outlet></router-outlet>
+
+Com isso, o Angular irá carregar o componente correspondente à rota atual dentro do elemento <router-outlet> no 
+template do componente raiz.
+
+Agora, quando o usuário navegar para uma determinada URL, o Angular irá carregar o componente correspondente à rota 
+definida e renderizá-lo dentro do <router-outlet> sem recarregar toda a página.
+
+Além disso, você pode configurar outras funcionalidades avançadas, como roteamento aninhado, parâmetros de rota, 
+redirecionamentos, entre outros. As rotas no Angular oferecem muitas possibilidades para criar uma experiência de 
+navegação rica e dinâmica em aplicativos web.
+
+----------//----------
+
+Vamos criar um componente chamado Home e nesse componente vai ser a nossa Página Principal.
+
+Vamos também fazer um componente Login, vale ressaltar que temos um problema, foi criado a tela 
+de login no componente principal (app.component.html), e para resolver isso vamos criar um próprio componente 
+para o login, pois é nesse componente que terá tudo relacionado ao login, desde a tela (front-end) até o service (back-end).
+Portanto, vamos criar o componente Login e Home.
+
+comandos:
+ng g c Login
+ng g c Home
+
+Para criar a rota para a nossa Página Principal, vamos no nosso 'app-routing.module.ts' e criar a nossa rota
+para a página Home e para a página Login. Vale ressaltar que é nesse arquivo que vão ser declarados todas as 
+nossas rotas.
+
+Codificação das rotas do Home e do Login (app-routing.module.ts):
+const routes: Routes = [{path: 'home', component: HomeComponent}, 
+{path: 'login', component: LoginComponent}, {path:'', component:LoginComponent}];
+
+Este (path: '') é a raiz do projeto que é mapeada para a página de login.  
+
+Próxima etapa é adicionar a diretiva <router-outlet></router-outlet> no 'app.component.html', pois o 
+redirecionamento vai ser sempre para esse componente principal.  Por fim colocamos a propriedade de 
+'link-router' e o valor da 'path' a ser redirecionado (/login) na tag onde vai ter a ação para o 
+redirecionamento, por exemplo:
+
+Código (login.component.html):
+<button type="button" (click)="login()" routerLink="/home">Acessar</button>
+                                                      ^
+                                                      |
+							                 {path: 'home', component: HomeComponent}
