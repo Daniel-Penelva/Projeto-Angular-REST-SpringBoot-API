@@ -283,3 +283,58 @@ Código (login.component.html):
                                                       ^
                                                       |
 							                 {path: 'home', component: HomeComponent}
+
+----------//----------
+
+RouterModule (app-routing.module.ts) X Router
+
+No Angular, o RouterModule e o Router são conceitos relacionados, mas têm finalidades diferentes:
+
+RouterModule:
+O RouterModule é um módulo que faz parte do pacote @angular/router e é usado para configurar e importar as 
+rotas no aplicativo. Ele contém as funcionalidades necessárias para configurar as rotas, criar o sistema de 
+navegação, fornecer os serviços relacionados a rotas e criar o <router-outlet> necessário para renderizar os 
+componentes associados às rotas.
+
+A configuração das rotas é feita através da definição de um array de objetos Routes que mapeiam URLs para 
+componentes específicos. A configuração das rotas é feita geralmente em um módulo de rotas separado 
+(como AppRoutingModule) e, em seguida, esse módulo de rotas é importado no módulo raiz do aplicativo 
+(AppModule).
+
+
+Router:
+O Router é um serviço fornecido pelo módulo RouterModule e é responsável por controlar a navegação e manipular 
+as rotas em tempo de execução. Ele permite que você navegue para rotas específicas, obtenha informações sobre 
+a rota atual, manipule o histórico de navegação e faça redirecionamentos, entre outras funcionalidades 
+relacionadas a rotas.
+
+Você pode injetar o serviço Router em componentes ou serviços para interagir com a navegação. Com o Router, 
+você pode usar métodos como navigate(), navigateByUrl(), navigateByUrlTree(), navigateByData(), entre outros, 
+para realizar a navegação programaticamente.
+
+  -> navigate(): Navega para uma rota específica com base no caminho fornecido como argumento. É um método 
+     assíncrono que retorna uma Promise<boolean> que resolve como true se a navegação foi bem-sucedida e false 
+	 caso contrário.
+
+  -> navigateByUrl(): Navega para uma rota específica com base na URL fornecida como argumento. A URL completa 
+     deve ser especificada. 
+
+  -> navigateByUrlTree(): Navega para uma rota específica com base na URL fornecida como argumento, mas 
+     retorna uma árvore de UrlTree que representa a rota, em vez de navegar diretamente.
+
+  -> navigateByData(): Navega para uma rota com base nos dados (data) associados a uma rota específica. Isso é 
+     útil quando você possui rotas nomeadas com dados personalizados. 
+
+  -> navigateByUrlAndReplace(): Navega para uma rota específica com base na URL fornecida como argumento, 
+     substituindo a entrada atual do histórico de navegação.	 
+
+Esses são alguns dos principais métodos disponíveis no Router. Cada um desses métodos é usado para controlar a 
+navegação e manipular o histórico de navegação do aplicativo Angular. O Router também fornece outras 
+propriedades úteis e eventos para interagir com a navegação e as rotas do aplicativo. Para usá-lo, você precisa 
+injetá-lo no componente ou serviço onde deseja manipular a navegação.
+
+Em resumo, o RouterModule é usado para configurar e importar as rotas no aplicativo, enquanto o Router é um 
+serviço fornecido pelo RouterModule que permite controlar a navegação e manipular as rotas programaticamente. 
+Juntos, eles formam o sistema de navegação poderoso e flexível do Angular.
+
+
