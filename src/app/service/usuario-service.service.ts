@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { AppConstants } from '../app-constants';
+import { User } from '../model/user';
 
 
 @Injectable({
@@ -11,7 +12,8 @@ export class UsuarioServiceService {
 
   constructor(private http: HttpClient) { }
 
+  // Faz um get gerando a lista de usuarios 
   getStudentList(): Observable<any>{
-    return this.http.get<any>(AppConstants.baseUrl);
+    return this.http.get<User[]>(AppConstants.baseUrl);
   }
 }
