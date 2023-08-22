@@ -10,6 +10,7 @@ import { UsuarioServiceService } from './../../../service/usuario-service.servic
 })
 export class UsuarioComponent implements OnInit {
   students: User[] = [];
+  nome: String = "";
 
   constructor(private usuarioService: UsuarioServiceService) {}
 
@@ -29,6 +30,13 @@ export class UsuarioComponent implements OnInit {
       this.usuarioService.getStudentList().subscribe((data) => {
         this.students = data;
       });
+    });
+  }
+
+  // Método para o click para consultar o usuário por nome (usuario.component.html). Ao clicar vai ser jogado para o usuario service.
+  consultarUsuario(){
+    this.usuarioService.consultarUser(this.nome).subscribe(data => {
+      this.students = data; // retorno do JSON
     });
   }
 }

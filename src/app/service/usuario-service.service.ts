@@ -22,4 +22,9 @@ export class UsuarioServiceService {
   deletarUsuario(id: Number): Observable<any>{
     return this.http.delete(AppConstants.baseUrl + id, {responseType: 'text'});
   }
+
+  // Faz uma busca de usuário por nome atráves do método GET - recebe um nome do tipo String
+  consultarUser(nome:String): Observable<any>{
+    return this.http.get(AppConstants.baseUrl + "usuarioPorNome/" + nome);
+  }
 }

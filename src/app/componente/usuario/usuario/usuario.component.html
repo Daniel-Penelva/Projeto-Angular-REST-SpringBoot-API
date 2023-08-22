@@ -1,18 +1,36 @@
+<br><br>
 
+<!--Campo de Pesquisa (ou consulta) por nome de usuário -->
+<form class="form-inline">
+  <div class="form-group mx-sm-3 mb-2">
+    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome" placeholder="Pesquisa por nome"/>
+    <button type="button" (click)="consultarUsuario()" class="btn btn-dark">Buscar</button>
+  </div>
+  
+</form>
+
+<br><br>
+<div class="form-group mx-sm-3 mb-2">
 <table class="table">
-    <thead class="thread-dark">
-        <th scope="col">ID</th>
-        <th scope="col">Nome</th>
-        <th scope="col">CPF</th>
-        <th scope="col">Deletar Usuário</th>
-    </thead>
-    <tbody>
-       <tr *ngFor="let student of students">
-        <td>{{ student.id }}</td>
-        <td>{{ student.nome }}</td>
-        <td>{{ student.cpf }}</td>
-        <td><button (click)="deleteUsuario(student.id)" class="btn btn-primary">Delete</button></td>
-       </tr>
-    </tbody>
+  <thead class="thread-dark">
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">CPF</th>
+    <th scope="col">Deletar Usuário</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{ student.id }}</td>
+      <td>{{ student.nome }}</td>
+      <td>{{ student.cpf }}</td>
+      <td>
+        <button (click)="deleteUsuario(student.id)" class="btn btn-primary">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
+</div>
 
+<br><br>
