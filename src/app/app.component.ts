@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent implements OnInit{
   
   title = 'Projeto-Angular-REST';
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private route: ActivatedRoute){}
 
   ngOnInit(): void {
     if(localStorage.getItem('token') == null){ // Se não tiver o token é redirecionado para a página login
@@ -23,6 +23,9 @@ export class AppComponent implements OnInit{
     localStorage.clear();
     this.router.navigate(['login']);
   }
-  
-  
+
+  // Método para acessar a lista de usuário 
+  public onUsuario(){
+    this.router.navigate(["/userList"], {relativeTo: this.route});
+  }
 }
