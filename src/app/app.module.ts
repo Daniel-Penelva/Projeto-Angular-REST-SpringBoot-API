@@ -9,6 +9,8 @@ import { UsuarioComponent } from './componente/usuario/usuario/usuario.component
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HttpInterceptorModule } from './service/header-interceptor.service';
+import { UsuarioAddComponent } from './componente/usuario/usuario-add/usuario-add/usuario-add.component';
+
 
 
 
@@ -17,7 +19,8 @@ import { HttpInterceptorModule } from './service/header-interceptor.service';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    UsuarioAddComponent
   ],
   imports: [
     BrowserModule,

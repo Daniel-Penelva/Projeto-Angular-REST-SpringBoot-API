@@ -625,3 +625,68 @@ PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\s
 Primeira coisa a ser feita é definir a rota para esse componente Usuario. Logo vamos adicionar a rota no
 'app-routing.module.ts'.
 
+------------------------------------------------------- // -------------------------------------------------------
+
+Vamos criar a funcionalidade para editar o usuário. Vale ressaltar que no click (ação) do botão editar vamos ter que passar no routerLink
+a rota e o parâmetro com o id do usuario. Esse parâmetro é como iremos identificar o usuário que queremos editar.
+
+Ex: <button [routerLink]="['/usuarioAdd', student.id]" routerLinkActive="router-link-active"  class="btn btn-warning">
+
+----------//----------
+
+Criando a pasta usuario-add + o componente usuarioAdd - comando:
+PS C:\AngularComSpringBoot\ProjetoSpringBootApiComAngular\Projeto-Angular-REST\src\app\componente\usuario> ng g c usuario-add/UsuarioAdd
+
+----------//----------
+
+Classe ActivatedRoute
+
+A classe `ActivatedRoute` faz parte do módulo `@angular/router` no Angular e é usada para acessar informações sobre a rota ativa no momento. Ela 
+fornece informações sobre os parâmetros, dados, segmentos da URL e outros detalhes relacionados à rota ativa.
+
+Aqui estão algumas das principais funcionalidades e usos da classe `ActivatedRoute`:
+
+1. **Acessando Parâmetros de Rota:** Através do `ActivatedRoute`, você pode acessar os parâmetros de rota que foram passados na URL. Isso é útil 
+   quando você precisa recuperar informações específicas da URL, como IDs de recursos ou valores dinâmicos.
+
+2. **Acessando Dados de Rota:** Além dos parâmetros, você pode acessar os dados associados a uma rota. Os dados de rota podem ser definidos ao 
+   configurar suas rotas e são úteis para passar informações estáticas relacionadas à rota.
+
+3. **Acessando Segmentos da URL:** Os segmentos da URL são partes da URL separadas por barras ("/"). Você pode usar o `ActivatedRoute` para 
+   acessar esses segmentos da URL e, assim, obter informações sobre a estrutura da rota.
+
+4. **Observando Alterações na Rota:** O `ActivatedRoute` também é usado para observar as alterações na rota ativa. Isso permite que você reaja a 
+   mudanças na URL e atualize a interface do usuário conforme necessário.
+
+Aqui está um exemplo qualquer de como pode usar a classe `ActivatedRoute` em um componente:
+
+```typescript
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  // ...
+})
+export class MyComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      // Acessando parâmetros de rota
+      const id = params['id'];
+      
+      // Acessando dados de rota
+      const data = this.route.snapshot.data;
+
+      // Acessando segmentos da URL
+      const segments = this.route.snapshot.url;
+    });
+  }
+}
+```
+
+No exemplo acima, estamos injetando o `ActivatedRoute` no construtor do componente. Em `ngOnInit()`, estamos usando o método `params.subscribe()` 
+para observar as alterações nos parâmetros de rota. Além disso, estamos usando `this.route.snapshot.data` para acessar os dados associados à 
+rota, e `this.route.snapshot.url` para acessar os segmentos da URL.
+
+Em resumo, a classe `ActivatedRoute` é usada para acessar informações sobre a rota ativa no Angular. Isso permite que você recupere parâmetros 
+de rota, dados de rota e segmentos da URL, e também reaja às alterações na rota para atualizar dinamicamente a interface do usuário.
