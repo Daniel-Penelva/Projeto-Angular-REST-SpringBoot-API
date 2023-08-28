@@ -690,3 +690,4 @@ rota, e `this.route.snapshot.url` para acessar os segmentos da URL.
 
 Em resumo, a classe `ActivatedRoute` é usada para acessar informações sobre a rota ativa no Angular. Isso permite que você recupere parâmetros 
 de rota, dados de rota e segmentos da URL, e também reaja às alterações na rota para atualizar dinamicamente a interface do usuário.
+

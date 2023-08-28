@@ -1,1 +1,46 @@
-<p>Tela de Usuário</p>
+<h3> Tela de Usuário </h3>
+
+<form action="">
+
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" for="id">ID</span>
+        </div>
+        <input type="text" class="form-control" aria-label="id" aria-describedby="inputGroup-sizing-sm" id="id" name="id" readonly="true" autocomplete="false">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" for="nome">Nome</span>
+        </div>
+        <input type="text" class="form-control" aria-label="nome"  aria-describedby="inputGroup-sizing-sm" id="nome" name="nome" required="true" autocomplete="false">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" for="login">Login</span>
+        </div>
+        <input type="text" class="form-control" aria-label="login"  aria-describedby="inputGroup-sizing-sm" id="login" name="login" required="true">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" for="senha">Senha</span>
+        </div>
+        <input type="password" class="form-control" aria-label="senha"  aria-describedby="inputGroup-sizing-sm" id="senha" name="senha" required="true">
+    </div>
+
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" for="cpf">CPF</span>
+        </div>
+        <input type="text" class="form-control" aria-label="cpf"  aria-describedby="inputGroup-sizing-sm" id="cpf" name="cpf" required="true">
+    </div>
+
+    <div class="form-row">
+        <button type="button" class="btn btn-outline-primary" [routerLink]="['/userList']" routerLinkActive="router-link-active" >Voltar</button>
+        <button type="button" class="btn btn-outline-primary" [routerLink]="['/userList']" routerLinkActive="router-link-active" >Novo</button>
+        <button type="button" class="btn btn-outline-primary" [routerLink]="['/userList']" routerLinkActive="router-link-active" >Cadastrar</button>
+    </div>
+    
+</form>
